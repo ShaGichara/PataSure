@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify a Product | PataSure</title>
+<style>
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #eaf5f5;
+    background: radial-gradient(circle at 80% 10%, #123d4b, transparent 40%),
+                linear-gradient(135deg, #071522, #0b2633 65%, #102c3a);
+    display: flex;
+    flex-direction: column;
+}
+header {
+    padding: 25px 8%;
+    border-bottom: 1px solid #ffffff18;
+}
+.logo { font-size: 25px; font-weight: bold; color: #64e4ce; }
+main {
+    width: min(650px, 90%);
+    margin: 75px auto;
+    flex: 1;
+}
+.eyebrow {
+    color: #64e4ce;
+    letter-spacing: 3px;
+    font-size: 12px;
+    font-weight: bold;
+}
+h1 { font-size: clamp(32px, 6vw, 48px); margin-bottom: 12px; }
+.intro { color: #a9c1c8; line-height: 1.7; }
+.search-box {
+    margin-top: 35px;
+    padding: 25px;
+    background: #ffffff0b;
+    border: 1px solid #ffffff20;
+    border-radius: 16px;
+}
+label { display: block; margin-bottom: 10px; font-size: 14px; }
+input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 9px;
+    border: 1px solid #41616b;
+    background: #071b27;
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+input:focus { border-color: #64e4ce; }
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 15px;
+    border: 0;
+    border-radius: 9px;
+    background: #64e4ce;
+    color: #06232c;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+button:hover { background: #8af3df; }
+#message { margin-top: 18px; color: #ffb4a8; line-height: 1.5; }
+.result {
+    display: none;
+    margin-top: 25px;
+    padding: 25px;
+    background: #ffffff0b;
+    border: 1px solid #64e4ce55;
+    border-radius: 16px;
+}
+.result h2 { color: #64e4ce; margin-top: 0; }
+.detail { padding: 12px 0; border-bottom: 1px solid #ffffff18; }
+.detail span { display: block; color: #9bb6be; font-size: 12px; margin-bottom: 6px; }
+.detail strong { overflow-wrap: anywhere; }
+.notice { color: #a9c1c8; font-size: 12px; line-height: 1.6; margin-top: 18px; }
+footer { text-align: center; padding: 25px; color: #78949e; font-size: 12px; }
+
+.passport-card {
+    max-width: 390px;
+    margin: 30px auto;
+    padding: 26px;
+    border-radius: 22px;
+    background: linear-gradient(145deg, #102b38, #091923);
+    border: 1px solid rgba(74, 210, 190, 0.25);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.passport-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    margin-bottom: 22px;
+}
+
+.passport-label {
+    color: #65d9c5;
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.passport-heading h3 {
+    color: #f1fbfa;
+    margin: 8px 0 0;
+    font-size: 21px;
+}
+
+.passport-mark {
+    color: #65d9c5;
+    font-size: 28px;
+}
+
+.qr-frame {
+    display: inline-block;
+    background: white;
+    padding: 15px;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(65, 211, 190, 0.15);
+}
+
+.qr-frame img {
+    display: block;
+    width: 220px;
+    max-width: 100%;
+    height: auto;
+}
+
+.scan-prompt {
+    color: #65d9c5;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin: 22px 0 8px;
+}
+
+.passport-id {
+    color: #b4cbd0;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.download-button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 10px;
+    background: #65d9c5;
+    color: #09232c;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.passport-footer {
+    color: #a9c1c8;
+    font-size: 11px;
+    line-height: 1.6;
+    margin: 20px 0 0;
+}
+.history-section {
+    margin-top: 30px;
+    padding: 22px;
+    border: 1px solid #ffffff20;
+    border-radius: 16px;
+    background: #ffffff08;
+}
+
+.history-section h3 {
+    color: #64e4ce;
+    margin-top: 0;
+}
+
+.integrity-status {
+    padding: 13px;
+    margin-bottom: 20px;
+    border-radius: 9px;
+    background: #ffffff0b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.integrity-valid { color: #64e4ce; }
+.integrity-invalid { color: #ff9b91; }
+
+.history-item {
+    padding: 15px;
+    margin: 12px 0;
+    border-left: 3px solid #64e4ce;
+    background: #ffffff08;
+    border-radius: 0 10px 10px 0;
+}
+
+.history-item strong {
+    color: #64e4ce;
+}
+
+.history-item p {
+    color: #c0d2d6;
+    line-height: 1.6;
+    margin-bottom: 5px;
+}
+
+.history-date {
+    color: #829fa8;
+    font-size: 11px;
+}
+
+.empty-history {
+    color: #a9c1c8;
+    font-size: 13px;
+}
+</style>
+</head>
+<body>
+<header><div class="logo">PataSure.</div></header>
+
+<main>
+    <div class="eyebrow">PRODUCT TRANSPARENCY</div>
+    <h1>Know what you're buying.</h1>
+    <p class="intro">
+        Enter a PataSure product ID to explore its recorded details
+        and the disclosures provided about its history.
+    </p>
+
+    <section class="search-box">
+        <form id="verifyForm">
+            <label for="productId">Product identification number</label>
+            <input id="productId" type="text" placeholder="Enter the product ID" required>
+            <button type="submit" id="searchButton">Verify product →</button>
+        </form>
+        <div id="message" role="status"></div>
+    </section>
+
+    <section class="result" id="result">
+        <h2>Product record found</h2>
+
+      <div class="passport-card">
+          <div class="passport-heading">
+         <div>
+            <span class="passport-label">PATASURE DIGITAL PASSPORT</span>
+            <h3 id="passportName">Product identity</h3>
+        </div>
+        <span class="passport-mark">✦</span>
+         </div>
+
+        <div class="qr-frame">
+        <img id="productQr" alt="PataSure product verification QR code">
+        </div>
+
+    <p class="scan-prompt">SCAN TO DISCOVER ITS STORY</p>
+    <p class="passport-id" id="passportId"></p>
+
+    <button type="button" id="downloadQr" class="download-button">
+        ↓ Download product QR
+    </button>
+
+    <p class="passport-footer">
+        Every product has a story. PataSure helps you explore it.
+    </p>
+    </div>
+
+        </div>
+        <div class="detail"><span>Product</span><strong id="name"></strong></div>
+        <div class="detail"><span>Brand</span><strong id="brand"></strong></div>
+        <div class="detail"><span>Model</span><strong id="model"></strong></div>
+        <div class="detail"><span>Recorded condition</span><strong id="condition"></strong></div>
+        <div class="detail"><span>Disclosures</span><strong id="description"></strong></div>
+        <div class="detail"><span>Record created</span><strong id="createdAt"></strong></div>
+<section class="history-section">
+    <h3>Product journey</h3>
+
+    <div id="integrityStatus" class="integrity-status">
+        Checking history integrity...
+    </div>
+
+    <div id="historyTimeline">
+        <p class="empty-history">Loading product history...</p>
+    </div>
+</section>
+       <p class="notice">
+            Important: This record reflects information submitted to PataSure.
+            A product record alone does not establish authenticity, legal ownership,
+            or the accuracy of seller-provided disclosures.
+        </p>
+    </section>
+</main>
+
+<footer>© 2026 PataSure · Transparency for second-hand products</footer>
+
+<script>
+const form = document.getElementById("verifyForm");
+const message = document.getElementById("message");
+const result = document.getElementById("result");
+const button = document.getElementById("searchButton");
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const id = document.getElementById("productId").value.trim();
+    message.textContent = "";
+    result.style.display = "none";
+
+    if (!id) {
+        message.textContent = "Please enter a product ID.";
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Searching...";
+
+    try {
+        const response = await fetch("/api/products/" + encodeURIComponent(id));
+
+        if (response.status === 404) {
+            message.textContent = "No product record was found for that ID.";
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error("The verification service returned an error.");
+        }
+
+        const product = await response.json();
+
+        document.getElementById("productQr").src =
+        "/api/products/" + encodeURIComponent(id) + "/qr";
+
+        document.getElementById("passportName").textContent =
+        product.name;
+
+        document.getElementById("passportId").textContent =
+        "PRODUCT ID: " + product.id;
+
+        document.getElementById("downloadQr").onclick = async () => {
+    const qrUrl = "/api/products/" + encodeURIComponent(id) + "/qr";
+    const response = await fetch(qrUrl);
+
+    if (!response.ok) {
+        alert("Unable to download QR code. Please try again.");
+        return;
+    }
+
+    const blob = await response.blob();
+    const downloadUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = downloadUrl;
+    link.download = "PataSure-Product-QR.png";
+    link.click();
+
+    URL.revokeObjectURL(downloadUrl);
+};
+
+        document.getElementById("productQr").src =
+        "/api/products/" + encodeURIComponent(id) + "/qr";
+
+        document.getElementById("name").textContent = product.name || "Not provided";
+        document.getElementById("brand").textContent = product.brand || "Not provided";
+        document.getElementById("model").textContent = product.model || "Not provided";
+        document.getElementById("condition").textContent = product.condition || "Not provided";
+        document.getElementById("description").textContent = product.description || "No disclosures recorded";
+        document.getElementById("createdAt").textContent =
+            product.createdAt ? new Date(product.createdAt).toLocaleString() : "Not available";
+        // Retrieve product history and verify its integrity
+        const [historyResponse, integrityResponse] = await Promise.all([
+            fetch("/api/products/" + encodeURIComponent(id) + "/history"),
+            fetch("/api/products/" + encodeURIComponent(id) + "/history/integrity")
+        ]);
+
+        const timeline = document.getElementById("historyTimeline");
+        const integrityStatus = document.getElementById("integrityStatus");
+
+        if (historyResponse.ok) {
+            const events = await historyResponse.json();
+            timeline.replaceChildren();
+
+            if (events.length === 0) {
+                timeline.innerHTML =
+                    '<p class="empty-history">No additional history events have been recorded yet.</p>';
+            } else {
+                events.forEach(event => {
+                    const item = document.createElement("div");
+                    item.className = "history-item";
+
+                    const heading = document.createElement("strong");
+                    heading.textContent = event.eventType.replaceAll("_", " ");
+
+                    const details = document.createElement("p");
+                    details.textContent = event.details;
+
+                    const date = document.createElement("div");
+                    date.className = "history-date";
+                    date.textContent = event.recordedAt
+                        ? new Date(event.recordedAt).toLocaleString()
+                        : "Date unavailable";
+
+                    item.append(heading, details, date);
+                    timeline.appendChild(item);
+                });
+            }
+        } else {
+            timeline.textContent = "Product history is currently unavailable.";
+        }
+
+        if (integrityResponse.ok) {
+            const integrity = await integrityResponse.json();
+
+            integrityStatus.className = "integrity-status " +
+                (integrity.valid ? "integrity-valid" : "integrity-invalid");
+
+            integrityStatus.textContent = integrity.valid
+                ? "✓ " + integrity.message + " (" + integrity.eventsChecked + " events checked)"
+                : "⚠ " + integrity.message;
+        } else {
+            integrityStatus.className = "integrity-status integrity-invalid";
+            integrityStatus.textContent = "History integrity could not be checked.";
+        }
+
+        result.style.display = "block";
+        message.textContent = "Record retrieved successfully.";
+        message.style.color = "#64e4ce";
+
+    } catch (error) {
+        message.style.color = "#ffb4a8";
+        message.textContent = "Unable to retrieve the record. Please try again.";
+    } finally {
+        button.disabled = false;
+        button.textContent = "Verify product →";
+    }
+});
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productIdFromUrl = urlParams.get("id");
+
+        if (productIdFromUrl) {
+             document.getElementById("productId").value = productIdFromUrl;
+             form.requestSubmit();
+    }
+
+</script>
+</body>
+</html>

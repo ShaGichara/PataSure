@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PataSure | Seller Portal</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#071522;color:#eaf5f7;font-family:Arial,sans-serif}
+header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1b3945}
+.logo{font-size:23px;font-weight:bold;color:#65e3d0}
+button,a{cursor:pointer}
+button{border:0;border-radius:9px;padding:12px 17px;background:#56d9c6;color:#06201f;font-weight:bold}
+button:disabled{opacity:.5;cursor:not-allowed}
+.logout{background:transparent;border:1px solid #42616b;color:#d7e9ec}
+main{max-width:1100px;margin:45px auto;padding:0 24px}
+.eyebrow{color:#65e3d0;letter-spacing:2px;font-size:12px}
+h1{font-size:34px;margin:10px 0}
+h2{margin-top:0}
+.subtitle{color:#9cb3bd;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;margin:30px 0}
+.card{background:#102635;border:1px solid #244451;border-radius:15px;padding:22px}
+.card small{color:#9cb3bd}
+.number{font-size:30px;font-weight:bold;margin-top:12px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin:35px 0 18px}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:15px 12px;border-bottom:1px solid #25414d}
+th{color:#65e3d0;font-size:12px;text-transform:uppercase}
+.muted{color:#9cb3bd;line-height:1.6}
+.table-wrap{overflow-x:auto}
+.message{padding:14px;border-radius:9px;background:#173847;color:#a8eee1;margin:15px 0}
+.message.error{background:#482b35;color:#ffc2cb}
+a{color:#65e3d0;text-decoration:none}
+.section{margin-top:42px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:9px}
+.field.full{grid-column:1/-1}
+label{font-size:13px;color:#b8d0d7}
+input,select,textarea{width:100%;padding:13px;background:#081b29;border:1px solid #355361;border-radius:9px;color:#eaf5f7;font:inherit}
+textarea{min-height:115px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid #56d9c6;border-color:#56d9c6}
+.form-actions{margin-top:20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.note{font-size:12px;color:#91aeb8;line-height:1.6;margin-top:16px}
+@media(max-width:600px){
+h1{font-size:27px}
+main{margin-top:28px}
+.form-grid{grid-template-columns:1fr}
+.field.full{grid-column:auto}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">PataSure <span style="color:#eaf5f7">/ Seller</span></div>
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" id="csrfToken">
+        <button class="logout" type="submit">Sign out</button>
+    </form>
+</header>
+
+<main>
+    <div class="eyebrow">SELLER WORKSPACE</div>
+    <h1>Your product portfolio.</h1>
+    <p class="subtitle">
+        Register products and manage their recorded journeys.
+        Buyers can explore the disclosures you provide through their product passports.
+    </p>
+
+    <div class="stats">
+        <div class="card">
+            <small>Products registered by you</small>
+            <div class="number" id="productCount">—</div>
+        </div>
+        <div class="card">
+            <small>Account status</small>
+            <div class="number" style="font-size:21px;color:#65e3d0">Active</div>
+        </div>
+    </div>
+
+    <div class="section-head">
+        <div>
+            <h2>Your products</h2>
+            <p class="muted">Only products linked to your seller account appear here.</p>
+        </div>
+        <a href="/register.html"><button type="button">+ Register product</button></a>
+    </div>
+
+    <div id="message" class="message">Loading your products...</div>
+
+    <div class="card table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Condition</th>
+                    <th>Passport</th>
+                </tr>
+            </thead>
+            <tbody id="productRows"></tbody>
+        </table>
+    </div>
+
+    <section class="section">
+        <div class="eyebrow">PRODUCT JOURNEY</div>
+        <h2>Record a product event.</h2>
+        <p class="muted">
+            Keep buyers informed by recording repairs, damage disclosures
+            and ownership transfers associated with your products.
+        </p>
+
+        <div class="card">
+            <form id="historyForm">
+                <div class="form-grid">
+
+                    <div class="field full">
+                        <label for="productSelect">Select your product</label>
+                        <select id="productSelect" required>
+                            <option value="">Loading your products...</option>
+                        </select>
+                    </div>
+
+                    <div class="field full">
+                        <label for="eventType">Type of event</label>
+                        <select id="eventType" required>
+                            <option value="">Choose an event</option>
+                            <option value="REPAIR">Repair</option>
+                            <option value="DAMAGE_DISCLOSURE">Damage disclosure</option>
+                            <option value="OWNERSHIP_TRANSFER">Ownership transfer</option>
+                        </select>
+                    </div>
+
+                    <div class="field full">
+                        <label for="eventDetails">Event details</label>
+                        <textarea
+                            id="eventDetails"
+                            maxlength="1000"
+                            required
+                            placeholder="Describe what happened. For example: Screen replaced by a repair technician on 12 November 2026."
+                        ></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="submitEvent">
+                        Record product event
+                    </button>
+                    <span id="eventStatus" class="muted"></span>
+                </div>
+
+                <p class="note">
+                    Recorded events become part of the product's hash-linked
+                    history and can be viewed through its public passport.
+                    Only record information you have a reasonable basis to provide.
+                </p>
+            </form>
+        </div>
+    </section>
+
+</main>
+
+<script>
+let csrfData = null;
+let sellerProducts = [];
+
+async function loadCsrf() {
+    const response = await fetch("/csrf", {
+        credentials: "same-origin",
+        cache: "no-store"
+    });
+
+    if (!response.ok) {
+        throw new Error("Could not initialise secure form protection.");
+    }
+
+    csrfData = await response.json();
+
+    document.getElementById("csrfToken").value = csrfData.token;
+}
+
+async function loadDashboard() {
+    const message = document.getElementById("message");
+
+    try {
+        await loadCsrf();
+
+        const response = await fetch("/api/products/my", {
+            credentials: "same-origin"
+        });
+
+        if (!response.ok) {
+            throw new Error("Unable to retrieve your products. Please sign in again.");
+        }
+
+        sellerProducts = await response.json();
+
+        document.getElementById("productCount").textContent =
+            sellerProducts.length;
+
+        const rows = document.getElementById("productRows");
+        const productSelect = document.getElementById("productSelect");
+
+        rows.replaceChildren();
+        productSelect.replaceChildren();
+
+        const placeholder = document.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = sellerProducts.length
+            ? "Choose a product"
+            : "Register a product first";
+
+        productSelect.appendChild(placeholder);
+
+        sellerProducts.forEach(product => {
+            const row = document.createElement("tr");
+
+            [
+                product.name,
+                product.brand,
+                product.model,
+                product.condition
+            ].forEach(value => {
+                const cell = document.createElement("td");
+                cell.textContent = value || "—";
+                row.appendChild(cell);
+            });
+
+            const passportCell = document.createElement("td");
+            const link = document.createElement("a");
+
+            link.href = "/verify.html?id=" + encodeURIComponent(product.id);
+            link.textContent = "View passport";
+
+            passportCell.appendChild(link);
+            row.appendChild(passportCell);
+            rows.appendChild(row);
+
+            const option = document.createElement("option");
+            option.value = product.id;
+            option.textContent = product.name + " — " +
+                product.brand + " " + product.model;
+
+            productSelect.appendChild(option);
+        });
+
+        document.getElementById("submitEvent").disabled =
+            sellerProducts.length === 0;
+
+        message.textContent = sellerProducts.length
+            ? "Your product records loaded successfully."
+            : "You have not registered any products yet.";
+
+    } catch (error) {
+        message.textContent = error.message;
+        message.classList.add("error");
+    }
+}
+
+document.getElementById("historyForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const productId = document.getElementById("productSelect").value;
+    const eventType = document.getElementById("eventType").value;
+    const details = document.getElementById("eventDetails").value.trim();
+    const status = document.getElementById("eventStatus");
+    const button = document.getElementById("submitEvent");
+
+    if (!productId || !eventType || !details) {
+        status.textContent = "Please complete all fields.";
+        return;
+    }
+
+    if (!csrfData) {
+        status.textContent = "Security token unavailable. Reload the page.";
+        return;
+    }
+
+    button.disabled = true;
+    status.textContent = "Recording event...";
+
+    try {
+        const response = await fetch(
+            "/api/products/" + encodeURIComponent(productId) + "/history",
+            {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    [csrfData.headerName]: csrfData.token
+                },
+                body: JSON.stringify({
+                    eventType: eventType,
+                    details: details
+                })
+            }
+        );
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(
+                "Could not record event (" + response.status + "). " +
+                errorText.substring(0, 180)
+            );
+        }
+
+        status.textContent = "Event recorded successfully!";
+        document.getElementById("eventDetails").value = "";
+        document.getElementById("eventType").value = "";
+
+        const message = document.getElementById("message");
+        message.textContent =
+            "Your product history has been updated. Open its public passport to view the event.";
+        message.classList.remove("error");
+
+    } catch (error) {
+        status.textContent = error.message;
+    } finally {
+        button.disabled = false;
+    }
+});
+
+loadDashboard();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PataSure | Administration</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 15% 0%, rgba(38,125,133,.16), transparent 40%),
+        linear-gradient(135deg, #06131f, #091c2b 55%, #071522);
+    color: #eaf5f7;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    min-height: 78px;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(110,205,204,.15);
+    background: rgba(5,18,29,.75);
+    backdrop-filter: blur(14px);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -.7px;
+    color: #65e3d0;
+}
+
+.logo span {
+    color: #eaf5f7;
+    font-weight: 400;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.admin-label {
+    color: #a8c0c8;
+    font-size: 13px;
+}
+
+.logout-button {
+    padding: 11px 18px;
+    border: 1px solid #355663;
+    border-radius: 9px;
+    color: #d8e9ec;
+    background: transparent;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.logout-button:hover {
+    border-color: #65e3d0;
+    color: #65e3d0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 25px 70px;
+}
+
+.eyebrow {
+    color: #65e3d0;
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
+.hero h1 {
+    font-size: clamp(30px, 5vw, 43px);
+    margin: 13px 0;
+    letter-spacing: -1.2px;
+}
+
+.hero p {
+    color: #9bb5c0;
+    line-height: 1.7;
+    max-width: 620px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 35px 0 50px;
+}
+
+.stat-card {
+    position: relative;
+    overflow: hidden;
+    padding: 25px;
+    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(20,53,69,.88), rgba(10,31,46,.95));
+    border: 1px solid rgba(104,205,199,.18);
+    box-shadow: 0 12px 35px rgba(0,0,0,.15);
+}
+
+.stat-card::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    right: -35px;
+    top: -40px;
+    border-radius: 50%;
+    background: rgba(101,227,208,.07);
+}
+
+.stat-card small {
+    color: #a3bac3;
+    font-size: 13px;
+}
+
+.stat-number {
+    margin-top: 16px;
+    font-size: 35px;
+    font-weight: 700;
+    color: #65e3d0;
+}
+
+.stat-description {
+    color: #7896a2;
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+.section-heading {
+    margin-bottom: 22px;
+}
+
+.section-heading h2 {
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.section-heading p {
+    color: #91aab5;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.seller-management {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: 45px;
+    align-items: center;
+    margin: 45px 0;
+    padding: 38px;
+    border: 1px solid rgba(101,227,208,.2);
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(17,49,65,.94), rgba(7,25,39,.98));
+    box-shadow: 0 18px 55px rgba(0,0,0,.2);
+}
+
+.seller-intro h2 {
+    font-size: 32px;
+    line-height: 1.2;
+    margin: 16px 0;
+}
+
+.seller-intro p {
+    color: #a0b7c1;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+.seller-form-card {
+    padding: 28px;
+    border-radius: 17px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(119,194,199,.16);
+}
+
+.form-heading {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 23px;
+}
+
+.form-icon {
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: rgba(87,220,202,.12);
+    color: #65e3d0;
+    font-size: 22px;
+}
+
+.form-heading h3 {
+    font-size: 17px;
+}
+
+.form-heading p {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #91aab5;
+}
+
+#sellerForm {
+    display: grid;
+    gap: 11px;
+}
+
+#sellerForm label {
+    margin-top: 8px;
+    color: #b6cbd1;
+    font-size: 13px;
+}
+
+#sellerForm input {
+    width: 100%;
+    padding: 14px 15px;
+    border-radius: 10px;
+    outline: none;
+    background: rgba(4,18,29,.8);
+    border: 1px solid #294b59;
+    color: #eefafa;
+    font-size: 14px;
+}
+
+#sellerForm input::placeholder {
+    color: #66818c;
+}
+
+#sellerForm input:focus {
+    border-color: #65e3d0;
+    box-shadow: 0 0 0 3px rgba(101,227,208,.09);
+}
+
+.create-button {
+    margin-top: 16px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    color: #06201f;
+    font-weight: 700;
+    font-size: 14px;
+    background: linear-gradient(100deg,#65e3d0,#70d8ec);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.create-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(101,227,208,.18);
+}
+
+#sellerMessage {
+    margin-top: 15px;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.security-note {
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(119,194,199,.13);
+    color: #8faab4;
+    font-size: 12px;
+}
+
+.products-section {
+    margin-top: 55px;
+}
+
+.table-card {
+    padding: 10px 22px;
+    overflow-x: auto;
+    border: 1px solid rgba(104,205,199,.17);
+    border-radius: 16px;
+    background: rgba(14,39,54,.8);
+}
+
+table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 17px 13px;
+    border-bottom: 1px solid rgba(119,194,199,.12);
+}
+
+th {
+    color: #65e3d0;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+td {
+    color: #c4d7dc;
+    font-size: 13px;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: rgba(101,227,208,.035);
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: rgba(101,227,208,.1);
+    color: #65e3d0;
+    font-size: 11px;
+}
+
+#productMessage {
+    color: #9bb5c0;
+    padding: 20px 0;
+    font-size: 13px;
+}
+
+.footer-note {
+    margin-top: 50px;
+    text-align: center;
+    color: #68838e;
+    font-size: 12px;
+}
+
+@media(max-width:800px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .seller-management {
+        grid-template-columns: 1fr;
+        padding: 25px;
+        gap: 25px;
+    }
+
+    .seller-intro h2 {
+        font-size: 27px;
+    }
+}
+
+@media(max-width:500px) {
+    header {
+        padding: 16px 5%;
+    }
+
+    .admin-label {
+        display: none;
+    }
+
+    main {
+        padding: 35px 17px 55px;
+    }
+
+    .seller-form-card {
+        padding: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">PataSure <span>/ Administration</span></div>
+
+    <div class="header-right">
+        <span class="admin-label">Administrator workspace</span>
+
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" id="csrfToken">
+            <button class="logout-button" type="submit">Sign out</button>
+        </form>
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="eyebrow">PLATFORM CONTROL CENTRE</div>
+        <h1>Welcome to PataSure.</h1>
+        <p>Manage the product transparency network, oversee seller accounts and monitor the platform's registered product records.</p>
+    </section>
+
+    <section class="stats">
+        <div class="stat-card">
+            <small>Registered products</small>
+            <div class="stat-number" id="productCount">—</div>
+            <div class="stat-description">Total product records</div>
+        </div>
+
+        <div class="stat-card">
+            <small>Seller accounts</small>
+            <div class="stat-number" id="sellerCount">—</div>
+            <div class="stat-description">Registered platform sellers</div>
+        </div>
+
+        <div class="stat-card">
+            <small>Platform status</small>
+            <div class="stat-number" style="font-size:25px">Operational</div>
+            <div class="stat-description">Application dashboard available</div>
+        </div>
+    </section>
+
+    <section class="seller-management">
+
+        <div class="seller-intro">
+            <div class="eyebrow">PLATFORM MANAGEMENT</div>
+            <h2>Bring sellers on board.</h2>
+            <p>Create secure seller accounts and expand the PataSure product network. Each seller receives access to their own product portfolio.</p>
+        </div>
+
+        <div class="seller-form-card">
+
+            <div class="form-heading">
+                <div class="form-icon">✦</div>
+                <div>
+                    <h3>New seller account</h3>
+                    <p>Seller credentials and account details</p>
+                </div>
+            </div>
+
+            <form id="sellerForm">
+
+                <label for="sellerName">Full name</label>
+                <input id="sellerName"
+                       type="text"
+                       placeholder="Enter seller's full name"
+                       maxlength="120"
+                       required>
+
+                <label for="sellerEmail">Email address</label>
+                <input id="sellerEmail"
+                       type="email"
+                       placeholder="seller@example.com"
+                       maxlength="180"
+                       required>
+
+                <label for="sellerPassword">Temporary password</label>
+                <input id="sellerPassword"
+                       type="password"
+                       placeholder="Minimum 12 characters"
+                       minlength="12"
+                       maxlength="72"
+                       required>
+
+                <button type="submit" class="create-button">
+                    Create seller account →
+                </button>
+
+            </form>
+
+            <p id="sellerMessage" role="status"></p>
+
+            <div class="security-note">
+                Passwords are securely hashed before storage.
+            </div>
+
+        </div>
+    </section>
+
+    <section class="products-section">
+
+        <div class="section-heading">
+            <div class="eyebrow">PLATFORM RECORDS</div>
+            <h2 style="margin-top:10px">Registered products</h2>
+            <p>Overview of products currently recorded on PataSure.</p>
+        </div>
+
+        <div class="table-card">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Condition</th>
+                        <th>Record</th>
+                    </tr>
+                </thead>
+
+                <tbody id="productRows"></tbody>
+            </table>
+
+            <div id="productMessage">Loading product records...</div>
+
+        </div>
+    </section>
+
+    <div class="footer-note">
+        PataSure · Product transparency and digital provenance
+    </div>
+
+</main>
+
+<script>
+async function loadCsrf() {
+    const response = await fetch("/csrf");
+
+    if (!response.ok) {
+        throw new Error("Unable to retrieve security token.");
+    }
+
+    const data = await response.json();
+
+    document.getElementById("csrfToken").value = data.token;
+
+    return data;
+}
+
+async function loadDashboard() {
+    try {
+        await loadCsrf();
+
+        const [productsResponse, sellersResponse] = await Promise.all([
+            fetch("/api/products"),
+            fetch("/api/admin/sellers/count")
+        ]);
+
+        if (!productsResponse.ok) {
+            throw new Error("Unable to load product records.");
+        }
+
+        if (!sellersResponse.ok) {
+            throw new Error("Unable to load seller statistics.");
+        }
+
+        const products = await productsResponse.json();
+        const sellers = await sellersResponse.json();
+
+        document.getElementById("productCount").textContent =
+            products.length;
+
+        document.getElementById("sellerCount").textContent =
+            sellers.sellerCount;
+
+        const rows = document.getElementById("productRows");
+        rows.replaceChildren();
+
+        products.forEach(product => {
+            const row = document.createElement("tr");
+
+            [
+                product.name,
+                product.brand,
+                product.model,
+                product.condition
+            ].forEach(value => {
+                const cell = document.createElement("td");
+                cell.textContent = value || "—";
+                row.appendChild(cell);
+            });
+
+            const recordCell = document.createElement("td");
+            const status = document.createElement("span");
+
+            status.className = "status";
+            status.textContent = "Recorded";
+
+            recordCell.appendChild(status);
+            row.appendChild(recordCell);
+            rows.appendChild(row);
+        });
+
+        document.getElementById("productMessage").textContent =
+            products.length
+                ? ""
+                : "No product records have been registered yet.";
+
+    } catch (error) {
+        document.getElementById("productMessage").textContent =
+            error.message;
+    }
+}
+
+document.getElementById("sellerForm").addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        const message = document.getElementById("sellerMessage");
+        const button = this.querySelector("button[type='submit']");
+
+        button.disabled = true;
+        button.textContent = "Creating account...";
+
+        try {
+            const csrf = await loadCsrf();
+
+            const payload = {
+                fullName: document.getElementById("sellerName").value.trim(),
+                email: document.getElementById("sellerEmail").value.trim(),
+                password: document.getElementById("sellerPassword").value
+            };
+
+            const response = await fetch("/api/admin/sellers", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    [csrf.headerName]: csrf.token
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    result.detail ||
+                    result.message ||
+                    "Seller account creation failed."
+                );
+            }
+
+            message.style.color = "#65e3d0";
+            message.textContent =
+                "Seller account successfully created: " + result.email;
+
+            this.reset();
+
+            await loadDashboard();
+
+        } catch (error) {
+            message.style.color = "#ff9b9b";
+            message.textContent = error.message;
+
+        } finally {
+            button.disabled = false;
+            button.textContent = "Create seller account →";
+        }
+    }
+);
+
+loadDashboard();
+</script>
+
+</body>
+</html>

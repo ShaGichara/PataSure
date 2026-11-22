@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | PataSure</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #edf7f8;
+            background:
+                radial-gradient(circle at 15% 20%, #123b50 0, transparent 35%),
+                radial-gradient(circle at 85% 80%, #25305a 0, transparent 35%),
+                #07131f;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+        .shell { width: 100%; max-width: 440px; }
+        .brand {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .brand-name {
+            font-size: 29px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .brand-name span { color: #48d6c4; }
+        .brand p { color: #91aab7; font-size: 13px; }
+        .panel {
+            padding: 38px;
+            border: 1px solid rgba(91, 203, 196, .2);
+            border-radius: 20px;
+            background: rgba(13, 31, 45, .88);
+            box-shadow: 0 20px 70px rgba(0, 0, 0, .35);
+        }
+        .eyebrow {
+            color: #48d6c4;
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        h1 { font-size: 27px; margin: 13px 0 8px; }
+        .intro { color: #9bb0bd; font-size: 14px; line-height: 1.6; }
+        label {
+            display: block;
+            margin: 22px 0 9px;
+            color: #d8e8ec;
+            font-size: 13px;
+        }
+        input {
+            width: 100%;
+            padding: 14px;
+            color: white;
+            background: #091b29;
+            border: 1px solid #294454;
+            border-radius: 9px;
+            outline: none;
+        }
+        input:focus { border-color: #48d6c4; }
+        button {
+            width: 100%;
+            margin-top: 27px;
+            padding: 15px;
+            border: 0;
+            border-radius: 9px;
+            background: linear-gradient(100deg, #32cbb9, #55a9cf);
+            color: #061720;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover { filter: brightness(1.08); }
+        .error {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            color: #ffc1c1;
+            background: rgba(190, 55, 65, .15);
+            font-size: 13px;
+        }
+        .footer {
+            margin-top: 24px;
+            text-align: center;
+            color: #718b99;
+            font-size: 12px;
+        }
+        a { color: #48d6c4; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <div class="brand">
+            <div class="brand-name">PATA<span>SURE</span></div>
+            <p>Product transparency. Informed decisions.</p>
+        </div>
+
+        <section class="panel">
+            <div class="eyebrow">SECURE ACCESS</div>
+            <h1>Welcome back.</h1>
+            <p class="intro">Sign in to access your PataSure workspace.</p>
+
+            <form action="/login" method="post">
+                <label for="username">Email address</label>
+                <input id="username" name="username" type="email"
+                       placeholder="you@example.com" required>
+
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password"
+                       placeholder="Enter your password" required>
+
+                <input type="hidden" name="_csrf" id="csrfToken">
+
+                <button type="submit">Sign in to PataSure →</button>
+            </form>
+
+            <div id="errorMessage" class="error" hidden>
+                Sign-in failed. Check your email and password and try again.
+            </div>
+        </section>
+
+        <div class="footer">
+            Protected access · PataSure Digital Product Passport
+        </div>
+    </main>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        if (params.has("error")) {
+            document.getElementById("errorMessage").hidden = false;
+        }
+        fetch("/csrf")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("csrfToken").value = data.token;
+            })
+            .catch(() => {
+                document.getElementById("csrfToken").value = "";
+            });
+    </script>
+</body>
+</html>

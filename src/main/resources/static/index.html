@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07111f">
+    <title>PataSure | Know Its Story</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Inter, "Segoe UI", sans-serif;
+            color: #f4f8ff;
+            background:
+                radial-gradient(ellipse at 75% 25%, rgba(0, 190, 180, .14), transparent 35%),
+                radial-gradient(ellipse at 15% 80%, rgba(90, 85, 220, .13), transparent 40%),
+                #07111f;
+            overflow-x: hidden;
+        }
+
+        nav {
+            width: min(1160px, 90%);
+            margin: auto;
+            padding: 28px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #35d6c0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #aab9cb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #35d6c0;
+        }
+
+        .nav-button {
+            border: 1px solid rgba(53, 214, 192, .5);
+            padding: 11px 18px;
+            border-radius: 8px;
+            color: #35d6c0 !important;
+        }
+
+        .hero {
+            width: min(1160px, 90%);
+            min-height: 76vh;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            align-items: center;
+            gap: 45px;
+            padding: 50px 0 85px;
+        }
+
+        .eyebrow {
+            color: #35d6c0;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: clamp(46px, 6vw, 76px);
+            line-height: 1.06;
+            letter-spacing: -4px;
+            max-width: 650px;
+        }
+
+        h1 span {
+            color: #35d6c0;
+        }
+
+        .description {
+            color: #9eafc4;
+            font-size: 17px;
+            line-height: 1.8;
+            max-width: 530px;
+            margin: 27px 0 32px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-button,
+        .secondary-button {
+            display: inline-block;
+            padding: 15px 23px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: .2s ease;
+        }
+
+        .primary-button {
+            background: #35d6c0;
+            color: #06131d;
+            box-shadow: 0 8px 30px rgba(53, 214, 192, .18);
+        }
+
+        .primary-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(53, 214, 192, .3);
+        }
+
+        .secondary-button {
+            border: 1px solid #33465b;
+            color: #dce8f5;
+        }
+
+        .secondary-button:hover {
+            border-color: #35d6c0;
+        }
+
+        .visual {
+            position: relative;
+            min-height: 430px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .orbit {
+            position: absolute;
+            width: 340px;
+            height: 340px;
+            border: 1px solid rgba(53, 214, 192, .19);
+            border-radius: 50%;
+            animation: rotate 25s linear infinite;
+        }
+
+        .orbit.two {
+            width: 430px;
+            height: 430px;
+            border-color: rgba(112, 120, 255, .14);
+            animation-direction: reverse;
+        }
+
+        .core {
+            width: 185px;
+            height: 185px;
+            border-radius: 32px;
+            background: linear-gradient(145deg, #123b48, #102238);
+            border: 1px solid rgba(53, 214, 192, .45);
+            box-shadow: 0 0 75px rgba(53, 214, 192, .15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .qr {
+            width: 75px;
+            height: 75px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+            margin-bottom: 14px;
+        }
+
+        .qr i {
+            background: #35d6c0;
+            border-radius: 2px;
+        }
+
+        .qr i:nth-child(3n),
+        .qr i:nth-child(7n) {
+            opacity: .15;
+        }
+
+        .core strong {
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        .node {
+            position: absolute;
+            width: 13px;
+            height: 13px;
+            background: #35d6c0;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #35d6c0;
+        }
+
+        .node.one { top: 17%; left: 35%; }
+        .node.two { bottom: 19%; right: 25%; background: #9291ff; box-shadow: 0 0 20px #9291ff; }
+        .node.three { top: 45%; right: 5%; }
+
+        .info-card {
+            position: absolute;
+            background: rgba(16, 35, 53, .88);
+            border: 1px solid rgba(255, 255, 255, .09);
+            border-radius: 12px;
+            padding: 14px 17px;
+            backdrop-filter: blur(15px);
+            z-index: 3;
+        }
+
+        .info-card small {
+            display: block;
+            color: #8da2b8;
+            font-size: 10px;
+            margin-bottom: 6px;
+        }
+
+        .info-card strong {
+            font-size: 12px;
+        }
+
+        .card-one { top: 14%; right: 0; }
+        .card-two { bottom: 14%; left: 0; }
+
+        .status {
+            color: #35d6c0;
+        }
+
+        .bottom-note {
+            width: min(1160px, 90%);
+            margin: auto;
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            padding: 23px 0;
+            color: #71869d;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 800px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 65px;
+            }
+
+            .visual {
+                min-height: 390px;
+            }
+
+            .nav-links a:not(.nav-button) {
+                display: none;
+            }
+
+            h1 {
+                letter-spacing: -2px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">Pata<span>Sure</span>.</div>
+
+        <div class="nav-links">
+            <a href="#how-it-works">How it works</a>
+            <a href="#about">About</a>
+            <a href="/verify">Verify a product</a>
+            <a href="/register" class="nav-button">Get started</a>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <section>
+            <div class="eyebrow">A smarter way to buy second-hand</div>
+
+            <h1>
+                Before you buy it.
+                <span>Know its story.</span>
+            </h1>
+
+            <p class="description">
+                Every second-hand product has a story.
+                PataSure helps you discover its recorded history,
+                understand its condition, and make more informed
+                buying decisions — one scan at a time.
+            </p>
+
+            <div class="actions">
+                <a href="/verify" class="primary-button">Verify a product ↗</a>
+                <a href="#how-it-works" class="secondary-button">Discover how it works</a>
+            </div>
+        </section>
+
+        <section class="visual" aria-label="Illustration of a product history record">
+            <div class="orbit two"></div>
+            <div class="orbit"></div>
+
+            <div class="node one"></div>
+            <div class="node two"></div>
+            <div class="node three"></div>
+
+            <div class="info-card card-one">
+                <small>PRODUCT HISTORY</small>
+                <strong>Recorded events <span class="status">●</span></strong>
+            </div>
+
+            <div class="core">
+                <div class="qr">
+                    <i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <strong>PATASURE ID</strong>
+            </div>
+
+            <div class="info-card card-two">
+                <small>YOUR NEXT PURCHASE</small>
+                <strong>Know more. Choose better.</strong>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bottom-note">
+        <span>© 2026 PataSure. Built for more transparent second-hand trade.</span>
+        <span>Product history · Disclosures · Traceability</span>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07111f">
+    <title>Register a Product | PataSure</title>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", sans-serif;
+            color: #f4f8ff;
+            background:
+                radial-gradient(ellipse at 80% 15%, rgba(0,190,180,.13), transparent 38%),
+                #07111f;
+        }
+
+        nav {
+            width: min(1100px, 90%);
+            margin: auto;
+            padding: 27px 0;
+        }
+
+        .logo {
+            color: #f4f8ff;
+            text-decoration: none;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .logo span { color: #35d6c0; }
+
+        main {
+            width: min(760px, 92%);
+            margin: 45px auto 80px;
+        }
+
+        .eyebrow {
+            color: #35d6c0;
+            font-size: 12px;
+            letter-spacing: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: clamp(34px, 5vw, 48px);
+            letter-spacing: -2px;
+            margin-bottom: 12px;
+        }
+
+        .intro {
+            color: #9eafc4;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .form-card {
+            padding: 32px;
+            background: rgba(16,35,53,.8);
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 17px;
+        }
+
+        .section-title {
+            font-size: 17px;
+            margin-bottom: 22px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .field { margin-bottom: 21px; }
+
+        label {
+            display: block;
+            color: #c6d3e2;
+            font-size: 13px;
+            margin-bottom: 9px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            background: #0a1929;
+            border: 1px solid #30455b;
+            border-radius: 8px;
+            color: #f4f8ff;
+            font: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #35d6c0;
+            box-shadow: 0 0 0 3px rgba(53,214,192,.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 105px;
+        }
+
+        .hint {
+            color: #8195aa;
+            font-size: 11px;
+            margin-top: 7px;
+        }
+
+        .notice {
+            padding: 14px;
+            border: 1px solid rgba(53,214,192,.2);
+            border-radius: 9px;
+            color: #a8c9c9;
+            background: rgba(53,214,192,.05);
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 10px 0 24px;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: #35d6c0;
+            color: #06131d;
+            font-size: 15px;
+            font-weight: 800;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        button:hover { background: #62e7d4; }
+        button:disabled { opacity: .6; cursor: wait; }
+
+        #result {
+            display: none;
+            margin-top: 25px;
+            padding: 22px;
+            border-radius: 12px;
+            background: rgba(53,214,192,.07);
+            border: 1px solid rgba(53,214,192,.35);
+        }
+
+        #result h2 {
+            color: #35d6c0;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        #result p {
+            color: #b5c5d6;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        #productId {
+            display: block;
+            overflow-wrap: anywhere;
+            margin: 15px 0;
+            color: #35d6c0;
+            font-size: 13px;
+        }
+
+        .error {
+            color: #ff9999 !important;
+            margin-top: 14px;
+            font-size: 13px;
+        }
+
+        @media(max-width: 600px) {
+            .grid { grid-template-columns: 1fr; gap: 0; }
+            .form-card { padding: 22px; }
+            main { margin-top: 30px; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/" class="logo">Pata<span>Sure</span>.</a>
+    </nav>
+
+    <main>
+        <div class="eyebrow">PataSure product registry</div>
+        <h1>Give this product a story.</h1>
+        <p class="intro">
+            Register a second-hand product to create its unique
+            PataSure record. Be honest about its condition and
+            any known repairs or damage.
+        </p>
+
+        <form id="productForm" class="form-card">
+            <h2 class="section-title">Product information</h2>
+
+            <div class="grid">
+                <div class="field">
+                    <label for="name">Product name *</label>
+                    <input id="name" maxlength="100" required
+                           placeholder="e.g. iPhone 13">
+                </div>
+
+                <div class="field">
+                    <label for="brand">Brand *</label>
+                    <input id="brand" maxlength="80" required
+                           placeholder="e.g. Apple">
+                </div>
+
+                <div class="field">
+                    <label for="model">Model *</label>
+                    <input id="model" maxlength="100" required
+                           placeholder="e.g. iPhone 13 128GB">
+                </div>
+
+                <div class="field">
+                    <label for="serialNumber">Serial number / IMEI</label>
+                    <input id="serialNumber" maxlength="100"
+                           placeholder="Enter if available">
+                    <p class="hint">Optional. Avoid sharing this publicly.</p>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="condition">Current condition *</label>
+                <select id="condition" required>
+                    <option value="">Select condition</option>
+                    <option value="Like New">Like New</option>
+                    <option value="Good">Good</option>
+                    <option value="Fair">Fair</option>
+                    <option value="Poor">Poor</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="description">Known repairs, damage and disclosures</label>
+                <textarea id="description" maxlength="1000"
+                    placeholder="Mention scratches, replaced screens, battery issues or other known history..."></textarea>
+            </div>
+
+            <div class="notice">
+                Registration creates a product record. It does not
+                independently prove authenticity, legal ownership or
+                the accuracy of seller-provided information.
+            </div>
+
+            <button id="submitButton" type="submit">
+                Register product →
+            </button>
+
+            <p id="errorMessage" class="error" role="alert"></p>
+
+            <div id="result" aria-live="polite">
+                <h2>Product registered successfully!</h2>
+                <p>Your PataSure product record has been created.</p>
+                <strong id="productId"></strong>
+                <p>Keep this ID. It will be used to retrieve this product record.</p>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        const form = document.getElementById("productForm");
+        const button = document.getElementById("submitButton");
+        const errorMessage = document.getElementById("errorMessage");
+        const result = document.getElementById("result");
+
+        async function getCsrfToken() {
+            const response = await fetch("/csrf", {
+                method: "GET",
+                credentials: "same-origin",
+                cache: "no-store"
+            });
+
+            if (!response.ok) {
+                throw new Error("Could not establish a secure session. Please log in again.");
+            }
+
+            return await response.json();
+        }
+
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            errorMessage.textContent = "";
+            result.style.display = "none";
+            button.disabled = true;
+            button.textContent = "Registering...";
+
+            const product = {
+                name: document.getElementById("name").value.trim(),
+                brand: document.getElementById("brand").value.trim(),
+                model: document.getElementById("model").value.trim(),
+                serialNumber: document.getElementById("serialNumber").value.trim() || null,
+                condition: document.getElementById("condition").value,
+                description: document.getElementById("description").value.trim()
+            };
+
+            try {
+                const csrf = await getCsrfToken();
+
+                const response = await fetch("/api/products", {
+                    method: "POST",
+                    credentials: "same-origin",
+                    headers: {
+                        "Content-Type": "application/json",
+                        [csrf.headerName]: csrf.token
+                    },
+                    body: JSON.stringify(product)
+                });
+
+                const responseText = await response.text();
+                let data = {};
+
+                try {
+                    data = responseText ? JSON.parse(responseText) : {};
+                } catch {
+                    data = { message: responseText };
+                }
+
+                if (!response.ok) {
+                    if (response.status === 401 || response.status === 403) {
+                        throw new Error(
+                            "Your session or permissions could not be verified. Please log in again and retry."
+                        );
+                    }
+
+                    throw new Error(
+                        data.message || data.detail ||
+                        "Registration failed. Please check your details."
+                    );
+                }
+
+                document.getElementById("productId").textContent = data.id;
+                result.style.display = "block";
+                form.reset();
+
+            } catch (error) {
+                errorMessage.textContent =
+                    error.message || "Unable to connect to PataSure.";
+            } finally {
+                button.disabled = false;
+                button.textContent = "Register product →";
+            }
+        });
+    </script>
+</body>
+</html>
