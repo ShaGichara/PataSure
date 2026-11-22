@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#07111f">
+    <meta name="description" content="PataSure helps buyers discover the recorded history of second-hand products through unique product identities and QR codes.">
     <title>PataSure | Know Its Story</title>
 
     <style>
@@ -11,6 +12,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -45,7 +50,7 @@
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 25px;
             align-items: center;
         }
 
@@ -140,6 +145,7 @@
 
         .secondary-button:hover {
             border-color: #35d6c0;
+            color: #35d6c0;
         }
 
         .visual {
@@ -245,6 +251,169 @@
             color: #35d6c0;
         }
 
+        /* Discover how it works */
+
+        .how-section {
+            position: relative;
+            padding: 105px 0 110px;
+            background: linear-gradient(
+                180deg,
+                rgba(12, 29, 45, .15),
+                rgba(12, 29, 45, .78),
+                rgba(12, 29, 45, .25)
+            );
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+            scroll-margin-top: 25px;
+        }
+
+        .section-container {
+            width: min(1160px, 90%);
+            margin: auto;
+        }
+
+        .section-heading {
+            max-width: 700px;
+            margin: 0 auto 55px;
+            text-align: center;
+        }
+
+        .section-heading .eyebrow {
+            margin-bottom: 18px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            line-height: 1.15;
+            letter-spacing: -1.8px;
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2 span {
+            color: #35d6c0;
+        }
+
+        .section-heading p {
+            color: #9eafc4;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .step-card {
+            position: relative;
+            padding: 30px 27px;
+            min-height: 245px;
+            background: linear-gradient(
+                145deg,
+                rgba(19, 44, 62, .86),
+                rgba(12, 27, 44, .88)
+            );
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 15px;
+            transition: transform .25s ease, border-color .25s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(53, 214, 192, .45);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 39px;
+            height: 39px;
+            border-radius: 11px;
+            background: rgba(53, 214, 192, .12);
+            border: 1px solid rgba(53, 214, 192, .28);
+            color: #35d6c0;
+            font-weight: 800;
+            font-size: 14px;
+            margin-bottom: 23px;
+        }
+
+        .step-card h3 {
+            font-size: 19px;
+            margin-bottom: 13px;
+            color: #f4f8ff;
+        }
+
+        .step-card p {
+            color: #9eafc4;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .integrity-note {
+            margin-top: 28px;
+            padding: 24px 27px;
+            border-radius: 13px;
+            border: 1px solid rgba(53, 214, 192, .2);
+            background: rgba(53, 214, 192, .055);
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+
+        .integrity-symbol {
+            color: #35d6c0;
+            font-size: 23px;
+            line-height: 1;
+        }
+
+        .integrity-note h3 {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .integrity-note p {
+            color: #9eafc4;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .section-action {
+            text-align: center;
+            margin-top: 38px;
+        }
+
+        /* About */
+
+        .about-section {
+            padding: 100px 0;
+            scroll-margin-top: 25px;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .about-content h2 {
+            font-size: clamp(30px, 4vw, 43px);
+            letter-spacing: -1.5px;
+            margin-bottom: 22px;
+        }
+
+        .about-content h2 span {
+            color: #35d6c0;
+        }
+
+        .about-content p {
+            color: #9eafc4;
+            font-size: 15px;
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
         .bottom-note {
             width: min(1160px, 90%);
             margin: auto;
@@ -280,12 +449,66 @@
             h1 {
                 letter-spacing: -2px;
             }
+
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .how-section,
+            .about-section {
+                padding: 75px 0;
+            }
+
+            .section-heading {
+                margin-bottom: 35px;
+            }
+
+            .step-card {
+                min-height: auto;
+            }
+
+            .integrity-note {
+                padding: 20px;
+            }
+
+            .visual {
+                min-height: 330px;
+            }
+
+            .orbit {
+                width: 270px;
+                height: 270px;
+            }
+
+            .orbit.two {
+                width: 330px;
+                height: 330px;
+            }
+
+            .info-card {
+                padding: 11px 12px;
+            }
+
+            .card-one {
+                right: -5px;
+            }
+
+            .card-two {
+                left: -5px;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: .01ms !important;
                 transition-duration: .01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
@@ -297,62 +520,177 @@
         <div class="logo">Pata<span>Sure</span>.</div>
 
         <div class="nav-links">
-            <a href="#how-it-works">How it works</a>
+            <a href="#how-it-works">Discover how it works</a>
             <a href="#about">About</a>
             <a href="/verify">Verify a product</a>
             <a href="/register" class="nav-button">Get started</a>
         </div>
     </nav>
 
-    <main class="hero">
-        <section>
-            <div class="eyebrow">A smarter way to buy second-hand</div>
+    <main>
+        <section class="hero">
+            <div>
+                <div class="eyebrow">A smarter way to buy second-hand</div>
 
-            <h1>
-                Before you buy it.
-                <span>Know its story.</span>
-            </h1>
+                <h1>
+                    Before you buy it.
+                    <span>Know its story.</span>
+                </h1>
 
-            <p class="description">
-                Every second-hand product has a story.
-                PataSure helps you discover its recorded history,
-                understand its condition, and make more informed
-                buying decisions — one scan at a time.
-            </p>
+                <p class="description">
+                    Every second-hand product has a story.
+                    PataSure helps you discover its recorded history,
+                    understand its condition, and make more informed
+                    buying decisions — one scan at a time.
+                </p>
 
-            <div class="actions">
-                <a href="/verify" class="primary-button">Verify a product ↗</a>
-                <a href="#how-it-works" class="secondary-button">Discover how it works</a>
+                <div class="actions">
+                    <a href="/verify" class="primary-button">Verify a product ↗</a>
+                    <a href="#how-it-works" class="secondary-button">Discover how it works</a>
+                </div>
+            </div>
+
+            <section class="visual" aria-label="Illustration of a product history record">
+                <div class="orbit two"></div>
+                <div class="orbit"></div>
+
+                <div class="node one"></div>
+                <div class="node two"></div>
+                <div class="node three"></div>
+
+                <div class="info-card card-one">
+                    <small>PRODUCT HISTORY</small>
+                    <strong>Recorded events <span class="status">●</span></strong>
+                </div>
+
+                <div class="core">
+                    <div class="qr">
+                        <i></i><i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i><i></i><i></i>
+                    </div>
+                    <strong>PATASURE ID</strong>
+                </div>
+
+                <div class="info-card card-two">
+                    <small>YOUR NEXT PURCHASE</small>
+                    <strong>Know more. Choose better.</strong>
+                </div>
+            </section>
+        </section>
+
+        <section class="how-section" id="how-it-works">
+            <div class="section-container">
+
+                <div class="section-heading">
+                    <div class="eyebrow">The PataSure journey</div>
+                    <h2>Discover how it <span>works.</span></h2>
+                    <p>
+                        A more informed second-hand purchase starts with
+                        a product's recorded story. Here's how PataSure
+                        connects sellers, products and buyers.
+                    </p>
+                </div>
+
+                <div class="steps-grid">
+
+                    <article class="step-card">
+                        <div class="step-number">01</div>
+                        <h3>A product is registered</h3>
+                        <p>
+                            An authorised seller registers a second-hand
+                            product on PataSure, providing its identifying
+                            details, condition and available description.
+                        </p>
+                    </article>
+
+                    <article class="step-card">
+                        <div class="step-number">02</div>
+                        <h3>A unique identity is created</h3>
+                        <p>
+                            PataSure assigns the product a unique
+                            identification record and generates a QR code
+                            that links to its public product page.
+                        </p>
+                    </article>
+
+                    <article class="step-card">
+                        <div class="step-number">03</div>
+                        <h3>Its story is recorded</h3>
+                        <p>
+                            Authorised sellers can add relevant product
+                            history, such as repairs, disclosures and
+                            ownership-related updates.
+                        </p>
+                    </article>
+
+                    <article class="step-card">
+                        <div class="step-number">04</div>
+                        <h3>The buyer scans and explores</h3>
+                        <p>
+                            A prospective buyer scans the product's QR
+                            code to view its available details and recorded
+                            history before making a purchase decision.
+                        </p>
+                    </article>
+
+                    <article class="step-card">
+                        <div class="step-number">05</div>
+                        <h3>Record integrity is checked</h3>
+                        <p>
+                            PataSure uses a hash-linked event history to
+                            help detect whether previously recorded events
+                            have been altered.
+                        </p>
+                    </article>
+
+                </div>
+
+                <div class="integrity-note">
+                    <div class="integrity-symbol">◇</div>
+                    <div>
+                        <h3>Transparency matters. So do honest limitations.</h3>
+                        <p>
+                            PataSure helps make recorded product information
+                            easier to access and examine. An intact history
+                            confirms the integrity of the recorded events;
+                            it does not independently prove a product's
+                            authenticity, condition or legal ownership.
+                            Buyers should still inspect products and assess
+                            the information provided.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="section-action">
+                    <a href="https://verify.patasure.freeddns.org/verify.html?id=9208abe3-f6e7-4438-9ae6-60e19b2f6fd5" class="primary-button">
+                        Try a sample product record ↗
+                    </a>
+                </div>
+
             </div>
         </section>
 
-        <section class="visual" aria-label="Illustration of a product history record">
-            <div class="orbit two"></div>
-            <div class="orbit"></div>
-
-            <div class="node one"></div>
-            <div class="node two"></div>
-            <div class="node three"></div>
-
-            <div class="info-card card-one">
-                <small>PRODUCT HISTORY</small>
-                <strong>Recorded events <span class="status">●</span></strong>
-            </div>
-
-            <div class="core">
-                <div class="qr">
-                    <i></i><i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i><i></i>
+        <section class="about-section" id="about">
+            <div class="section-container">
+                <div class="about-content">
+                    <div class="eyebrow">Why PataSure</div>
+                    <h2>Second-hand trade deserves <span>more transparency.</span></h2>
+                    <p>
+                        Buying a pre-owned product should not mean buying
+                        without information. Yet important details about
+                        a product's past can be difficult to access,
+                        communicate or keep together.
+                    </p>
+                    <p>
+                        PataSure provides a shared place for product
+                        identification, recorded disclosures and history.
+                        Our goal is simple: help buyers ask better
+                        questions and make more informed decisions.
+                    </p>
                 </div>
-                <strong>PATASURE ID</strong>
-            </div>
-
-            <div class="info-card card-two">
-                <small>YOUR NEXT PURCHASE</small>
-                <strong>Know more. Choose better.</strong>
             </div>
         </section>
     </main>
