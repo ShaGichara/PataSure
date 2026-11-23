@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PataSure | Access Restricted</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: #071522;
+    color: #eaf5f7;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    width: 100%;
+    max-width: 540px;
+    padding: 42px;
+    text-align: center;
+    background: #102635;
+    border: 1px solid #244451;
+    border-radius: 20px;
+}
+
+.logo {
+    color: #65e3d0;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 35px;
+}
+
+.icon {
+    width: 76px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: #482b35;
+    color: #ffc2cb;
+    font-size: 36px;
+}
+
+.eyebrow {
+    color: #65e3d0;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 30px;
+    margin: 12px 0;
+}
+
+.description {
+    color: #a8bdc6;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.notice {
+    padding: 15px;
+    background: #081b29;
+    border: 1px solid #355361;
+    border-radius: 10px;
+    color: #c3d8df;
+    line-height: 1.6;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+button, a.button {
+    display: block;
+    width: 100%;
+    padding: 14px 18px;
+    border: 0;
+    border-radius: 9px;
+    background: #56d9c6;
+    color: #06201f;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a.secondary {
+    background: transparent;
+    border: 1px solid #42616b;
+    color: #d7e9ec;
+}
+
+.footer {
+    margin-top: 28px;
+    color: #78939e;
+    font-size: 12px;
+}
+
+@media(max-width: 480px) {
+    .card {
+        padding: 30px 22px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="card">
+
+    <div class="logo">PataSure</div>
+
+    <div class="icon" aria-hidden="true">!</div>
+
+    <div class="eyebrow">ACCESS RESTRICTED</div>
+
+    <h1>Oops! You're not an admin.</h1>
+
+    <p class="description">
+        It looks like your current account doesn't have permission
+        to access this area.
+    </p>
+
+    <div class="notice">
+        Your account can access the features assigned to its role.
+        Administrator areas are reserved for authorised administrators.
+    </div>
+
+    <div class="actions">
+        <a class="button" href="/seller.html">
+            Return to Seller Workspace
+        </a>
+
+        <form action="/logout" method="post" id="logoutForm">
+            <input type="hidden" name="_csrf" id="csrfToken">
+            <button class="secondary" type="submit">
+                Sign out and switch account
+            </button>
+        </form>
+    </div>
+
+    <div class="footer">
+        PataSure · Product transparency and verification
+    </div>
+
+</main>
+
+<script>
+fetch("/csrf", {
+    credentials: "same-origin",
+    cache: "no-store"
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error("Could not load security token");
+    }
+    return response.json();
+})
+.then(data => {
+    document.getElementById("csrfToken").value = data.token;
+})
+.catch(() => {
+    document.getElementById("logoutForm").style.display = "none";
+});
+</script>
+
+</body>
+</html>
+

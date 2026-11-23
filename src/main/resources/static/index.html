@@ -1,704 +1,207 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#07111f">
-    <meta name="description" content="PataSure helps buyers discover the recorded history of second-hand products through unique product identities and QR codes.">
-    <title>PataSure | Know Its Story</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            min-height: 100vh;
-            font-family: Inter, "Segoe UI", sans-serif;
-            color: #f4f8ff;
-            background:
-                radial-gradient(ellipse at 75% 25%, rgba(0, 190, 180, .14), transparent 35%),
-                radial-gradient(ellipse at 15% 80%, rgba(90, 85, 220, .13), transparent 40%),
-                #07111f;
-            overflow-x: hidden;
-        }
-
-        nav {
-            width: min(1160px, 90%);
-            margin: auto;
-            padding: 28px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 25px;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .logo span {
-            color: #35d6c0;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #aab9cb;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .nav-links a:hover {
-            color: #35d6c0;
-        }
-
-        .nav-button {
-            border: 1px solid rgba(53, 214, 192, .5);
-            padding: 11px 18px;
-            border-radius: 8px;
-            color: #35d6c0 !important;
-        }
-
-        .hero {
-            width: min(1160px, 90%);
-            min-height: 76vh;
-            margin: auto;
-            display: grid;
-            grid-template-columns: 1.1fr .9fr;
-            align-items: center;
-            gap: 45px;
-            padding: 50px 0 85px;
-        }
-
-        .eyebrow {
-            color: #35d6c0;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-        }
-
-        h1 {
-            font-size: clamp(46px, 6vw, 76px);
-            line-height: 1.06;
-            letter-spacing: -4px;
-            max-width: 650px;
-        }
-
-        h1 span {
-            color: #35d6c0;
-        }
-
-        .description {
-            color: #9eafc4;
-            font-size: 17px;
-            line-height: 1.8;
-            max-width: 530px;
-            margin: 27px 0 32px;
-        }
-
-        .actions {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .primary-button,
-        .secondary-button {
-            display: inline-block;
-            padding: 15px 23px;
-            border-radius: 9px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 14px;
-            transition: .2s ease;
-        }
-
-        .primary-button {
-            background: #35d6c0;
-            color: #06131d;
-            box-shadow: 0 8px 30px rgba(53, 214, 192, .18);
-        }
-
-        .primary-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(53, 214, 192, .3);
-        }
-
-        .secondary-button {
-            border: 1px solid #33465b;
-            color: #dce8f5;
-        }
-
-        .secondary-button:hover {
-            border-color: #35d6c0;
-            color: #35d6c0;
-        }
-
-        .visual {
-            position: relative;
-            min-height: 430px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .orbit {
-            position: absolute;
-            width: 340px;
-            height: 340px;
-            border: 1px solid rgba(53, 214, 192, .19);
-            border-radius: 50%;
-            animation: rotate 25s linear infinite;
-        }
-
-        .orbit.two {
-            width: 430px;
-            height: 430px;
-            border-color: rgba(112, 120, 255, .14);
-            animation-direction: reverse;
-        }
-
-        .core {
-            width: 185px;
-            height: 185px;
-            border-radius: 32px;
-            background: linear-gradient(145deg, #123b48, #102238);
-            border: 1px solid rgba(53, 214, 192, .45);
-            box-shadow: 0 0 75px rgba(53, 214, 192, .15);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-        }
-
-        .qr {
-            width: 75px;
-            height: 75px;
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 4px;
-            margin-bottom: 14px;
-        }
-
-        .qr i {
-            background: #35d6c0;
-            border-radius: 2px;
-        }
-
-        .qr i:nth-child(3n),
-        .qr i:nth-child(7n) {
-            opacity: .15;
-        }
-
-        .core strong {
-            font-size: 13px;
-            letter-spacing: 2px;
-        }
-
-        .node {
-            position: absolute;
-            width: 13px;
-            height: 13px;
-            background: #35d6c0;
-            border-radius: 50%;
-            box-shadow: 0 0 20px #35d6c0;
-        }
-
-        .node.one { top: 17%; left: 35%; }
-        .node.two { bottom: 19%; right: 25%; background: #9291ff; box-shadow: 0 0 20px #9291ff; }
-        .node.three { top: 45%; right: 5%; }
-
-        .info-card {
-            position: absolute;
-            background: rgba(16, 35, 53, .88);
-            border: 1px solid rgba(255, 255, 255, .09);
-            border-radius: 12px;
-            padding: 14px 17px;
-            backdrop-filter: blur(15px);
-            z-index: 3;
-        }
-
-        .info-card small {
-            display: block;
-            color: #8da2b8;
-            font-size: 10px;
-            margin-bottom: 6px;
-        }
-
-        .info-card strong {
-            font-size: 12px;
-        }
-
-        .card-one { top: 14%; right: 0; }
-        .card-two { bottom: 14%; left: 0; }
-
-        .status {
-            color: #35d6c0;
-        }
-
-        /* Discover how it works */
-
-        .how-section {
-            position: relative;
-            padding: 105px 0 110px;
-            background: linear-gradient(
-                180deg,
-                rgba(12, 29, 45, .15),
-                rgba(12, 29, 45, .78),
-                rgba(12, 29, 45, .25)
-            );
-            border-top: 1px solid rgba(255, 255, 255, .06);
-            border-bottom: 1px solid rgba(255, 255, 255, .06);
-            scroll-margin-top: 25px;
-        }
-
-        .section-container {
-            width: min(1160px, 90%);
-            margin: auto;
-        }
-
-        .section-heading {
-            max-width: 700px;
-            margin: 0 auto 55px;
-            text-align: center;
-        }
-
-        .section-heading .eyebrow {
-            margin-bottom: 18px;
-        }
-
-        .section-heading h2 {
-            font-size: clamp(32px, 4vw, 48px);
-            line-height: 1.15;
-            letter-spacing: -1.8px;
-            margin-bottom: 20px;
-        }
-
-        .section-heading h2 span {
-            color: #35d6c0;
-        }
-
-        .section-heading p {
-            color: #9eafc4;
-            font-size: 16px;
-            line-height: 1.8;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .step-card {
-            position: relative;
-            padding: 30px 27px;
-            min-height: 245px;
-            background: linear-gradient(
-                145deg,
-                rgba(19, 44, 62, .86),
-                rgba(12, 27, 44, .88)
-            );
-            border: 1px solid rgba(255, 255, 255, .08);
-            border-radius: 15px;
-            transition: transform .25s ease, border-color .25s ease;
-        }
-
-        .step-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(53, 214, 192, .45);
-        }
-
-        .step-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 39px;
-            height: 39px;
-            border-radius: 11px;
-            background: rgba(53, 214, 192, .12);
-            border: 1px solid rgba(53, 214, 192, .28);
-            color: #35d6c0;
-            font-weight: 800;
-            font-size: 14px;
-            margin-bottom: 23px;
-        }
-
-        .step-card h3 {
-            font-size: 19px;
-            margin-bottom: 13px;
-            color: #f4f8ff;
-        }
-
-        .step-card p {
-            color: #9eafc4;
-            font-size: 14px;
-            line-height: 1.8;
-        }
-
-        .integrity-note {
-            margin-top: 28px;
-            padding: 24px 27px;
-            border-radius: 13px;
-            border: 1px solid rgba(53, 214, 192, .2);
-            background: rgba(53, 214, 192, .055);
-            display: flex;
-            gap: 18px;
-            align-items: flex-start;
-        }
-
-        .integrity-symbol {
-            color: #35d6c0;
-            font-size: 23px;
-            line-height: 1;
-        }
-
-        .integrity-note h3 {
-            font-size: 15px;
-            margin-bottom: 8px;
-        }
-
-        .integrity-note p {
-            color: #9eafc4;
-            font-size: 13px;
-            line-height: 1.8;
-        }
-
-        .section-action {
-            text-align: center;
-            margin-top: 38px;
-        }
-
-        /* About */
-
-        .about-section {
-            padding: 100px 0;
-            scroll-margin-top: 25px;
-        }
-
-        .about-content {
-            max-width: 800px;
-            margin: auto;
-            text-align: center;
-        }
-
-        .about-content h2 {
-            font-size: clamp(30px, 4vw, 43px);
-            letter-spacing: -1.5px;
-            margin-bottom: 22px;
-        }
-
-        .about-content h2 span {
-            color: #35d6c0;
-        }
-
-        .about-content p {
-            color: #9eafc4;
-            font-size: 15px;
-            line-height: 1.9;
-            margin-bottom: 16px;
-        }
-
-        .bottom-note {
-            width: min(1160px, 90%);
-            margin: auto;
-            border-top: 1px solid rgba(255, 255, 255, .08);
-            padding: 23px 0;
-            color: #71869d;
-            font-size: 12px;
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 800px) {
-            .hero {
-                grid-template-columns: 1fr;
-                padding-top: 65px;
-            }
-
-            .visual {
-                min-height: 390px;
-            }
-
-            .nav-links a:not(.nav-button) {
-                display: none;
-            }
-
-            h1 {
-                letter-spacing: -2px;
-            }
-
-            .steps-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 560px) {
-            .steps-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .how-section,
-            .about-section {
-                padding: 75px 0;
-            }
-
-            .section-heading {
-                margin-bottom: 35px;
-            }
-
-            .step-card {
-                min-height: auto;
-            }
-
-            .integrity-note {
-                padding: 20px;
-            }
-
-            .visual {
-                min-height: 330px;
-            }
-
-            .orbit {
-                width: 270px;
-                height: 270px;
-            }
-
-            .orbit.two {
-                width: 330px;
-                height: 330px;
-            }
-
-            .info-card {
-                padding: 11px 12px;
-            }
-
-            .card-one {
-                right: -5px;
-            }
-
-            .card-two {
-                left: -5px;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: .01ms !important;
-                transition-duration: .01ms !important;
-                scroll-behavior: auto !important;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="PataSure helps buyers explore the recorded history of second-hand products.">
+<title>PataSure | Know Its Story</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Inter,"Segoe UI",sans-serif;color:#f4f8ff;background:radial-gradient(ellipse at 75% 25%,rgba(0,190,180,.14),transparent 35%),radial-gradient(ellipse at 15% 80%,rgba(90,85,220,.13),transparent 40%),#07111f;overflow-x:hidden}
+body.menu-open{overflow:hidden}
+a{color:inherit;text-decoration:none}
+nav{width:min(1160px,90%);margin:auto;padding:24px 0;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:100}
+.logo{font-size:25px;font-weight:800;letter-spacing:-1px}.logo span{color:#35d6c0}
+.nav-links{display:flex;gap:25px;align-items:center}
+.nav-links a{color:#aab9cb;font-size:14px;transition:.2s}
+.nav-links a:hover{color:#35d6c0}
+.nav-button{border:1px solid rgba(53,214,192,.5);padding:11px 18px;border-radius:8px;color:#35d6c0!important}
+.menu-toggle{display:none;background:rgba(53,214,192,.07);border:1px solid #294454;border-radius:12px;color:#35d6c0;font-size:25px;width:46px;height:44px;cursor:pointer;align-items:center;justify-content:center}
+.menu-toggle:hover{background:rgba(53,214,192,.15)}
+.drawer-overlay{display:none}
+.drawer-close{display:none}
+.hero{width:min(1160px,90%);min-height:76vh;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:45px;padding:50px 0 85px}
+.eyebrow{color:#35d6c0;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:24px}
+h1{font-size:clamp(46px,6vw,76px);line-height:1.06;letter-spacing:-4px;max-width:650px}
+h1 span,.section-heading h2 span,.about-content h2 span{color:#35d6c0}
+.description{color:#9eafc4;font-size:17px;line-height:1.8;max-width:530px;margin:27px 0 32px}
+.actions{display:flex;gap:15px;flex-wrap:wrap}
+.primary-button,.secondary-button{display:inline-block;padding:15px 23px;border-radius:9px;font-weight:700;font-size:14px;transition:.2s}
+.primary-button{background:#35d6c0;color:#06131d;box-shadow:0 8px 30px rgba(53,214,192,.18)}
+.primary-button:hover{transform:translateY(-3px)}
+.secondary-button{border:1px solid #33465b;color:#dce8f5}
+.secondary-button:hover{border-color:#35d6c0;color:#35d6c0}
+.visual{position:relative;min-height:430px;display:flex;align-items:center;justify-content:center}
+.orbit{position:absolute;width:340px;height:340px;border:1px solid rgba(53,214,192,.19);border-radius:50%;animation:rotate 25s linear infinite}
+.orbit.two{width:430px;height:430px;border-color:rgba(112,120,255,.14);animation-direction:reverse}
+.core{width:185px;height:185px;border-radius:32px;background:linear-gradient(145deg,#123b48,#102238);border:1px solid rgba(53,214,192,.45);box-shadow:0 0 75px rgba(53,214,192,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2}
+.qr{width:75px;height:75px;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:14px}
+.qr i{background:#35d6c0;border-radius:2px}.qr i:nth-child(3n),.qr i:nth-child(7n){opacity:.15}
+.core strong{font-size:13px;letter-spacing:2px}
+.node{position:absolute;width:13px;height:13px;background:#35d6c0;border-radius:50%;box-shadow:0 0 20px #35d6c0}
+.node.one{top:17%;left:35%}.node.two{bottom:19%;right:25%;background:#9291ff;box-shadow:0 0 20px #9291ff}.node.three{top:45%;right:5%}
+.info-card{position:absolute;background:rgba(16,35,53,.88);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:14px 17px;backdrop-filter:blur(15px);z-index:3}
+.info-card small{display:block;color:#8da2b8;font-size:10px;margin-bottom:6px}.info-card strong{font-size:12px}
+.card-one{top:14%;right:0}.card-two{bottom:14%;left:0}.status{color:#35d6c0}
+.how-section{padding:100px 0;background:linear-gradient(180deg,rgba(12,29,45,.15),rgba(12,29,45,.78),rgba(12,29,45,.25));border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);scroll-margin-top:25px}
+.section-container{width:min(1160px,90%);margin:auto}
+.section-heading{max-width:700px;margin:0 auto 50px;text-align:center}
+.section-heading .eyebrow{margin-bottom:18px}
+.section-heading h2{font-size:clamp(32px,4vw,48px);line-height:1.15;letter-spacing:-1.8px;margin-bottom:20px}
+.section-heading p,.step-card p,.about-content p{color:#9eafc4;line-height:1.8}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.step-card{padding:28px;min-height:220px;background:linear-gradient(145deg,rgba(19,44,62,.86),rgba(12,27,44,.88));border:1px solid rgba(255,255,255,.08);border-radius:15px;transition:.25s}
+.step-card:hover{transform:translateY(-5px);border-color:rgba(53,214,192,.45)}
+.step-number{display:inline-flex;align-items:center;justify-content:center;width:39px;height:39px;border-radius:11px;background:rgba(53,214,192,.12);border:1px solid rgba(53,214,192,.28);color:#35d6c0;font-weight:800;margin-bottom:20px}
+.step-card h3{font-size:18px;margin-bottom:12px}.step-card p{font-size:14px}
+.integrity-note{margin-top:28px;padding:24px;border-radius:13px;border:1px solid rgba(53,214,192,.2);background:rgba(53,214,192,.055)}
+.integrity-note h3{font-size:15px;margin-bottom:8px}.integrity-note p{color:#9eafc4;font-size:13px;line-height:1.8}
+.section-action{text-align:center;margin-top:35px}
+.about-section{padding:95px 0;scroll-margin-top:25px}
+.about-content{max-width:800px;margin:auto;text-align:center}
+.about-content h2{font-size:clamp(30px,4vw,43px);letter-spacing:-1.5px;margin-bottom:22px}
+.about-content p{font-size:15px;margin-bottom:16px}
+.bottom-note{width:min(1160px,90%);margin:auto;border-top:1px solid rgba(255,255,255,.08);padding:23px 0;color:#71869d;font-size:12px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@keyframes rotate{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+@media(max-width:800px){
+ nav{padding:18px 0}
+ .menu-toggle{display:flex}
+ .drawer-overlay{display:block;position:fixed;inset:0;background:rgba(0,0,0,.62);backdrop-filter:blur(3px);z-index:110;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}
+ .drawer-overlay.open{opacity:1;visibility:visible}
+ .nav-links{position:fixed;top:0;right:0;width:min(86vw,370px);height:100vh;height:100dvh;padding:92px 28px 35px;background:linear-gradient(160deg,#112b40,#081725 75%);border-left:1px solid rgba(53,214,192,.2);box-shadow:-20px 0 60px rgba(0,0,0,.4);display:flex;flex-direction:column;align-items:stretch;gap:0;z-index:120;transform:translateX(105%);visibility:hidden;transition:transform .38s cubic-bezier(.22,.8,.25,1),visibility .38s}
+ .nav-links.open{transform:translateX(0);visibility:visible}
+ .drawer-heading{display:block;color:#35d6c0;font-size:11px;font-weight:800;letter-spacing:3px;margin-bottom:22px}
+ .nav-links a{display:flex;align-items:center;justify-content:space-between;padding:17px 4px;color:#e1eaf4;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px}
+ .nav-links a::after{content:"↗";color:#35d6c0;font-size:14px}
+ .nav-links a:hover{color:#35d6c0;padding-left:9px}
+ .nav-links .nav-button{margin-top:24px;justify-content:center;text-align:center;border:1px solid rgba(53,214,192,.5);border-radius:10px;padding:15px;color:#35d6c0!important}
+ .nav-links .nav-button::after{content:""}
+ .drawer-close{display:flex;position:absolute;top:23px;right:24px;width:42px;height:42px;align-items:center;justify-content:center;border:1px solid #355064;border-radius:12px;background:#193348;color:#fff;font-size:25px;cursor:pointer}
+ .drawer-close:hover{background:#24475b;color:#35d6c0}
+ .drawer-heading{display:block}
+ .hero{grid-template-columns:1fr;padding-top:45px}
+ .visual{min-height:370px}
+ h1{letter-spacing:-2px}
+ .steps-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:801px){.drawer-heading{display:none}}
+@media(max-width:560px){
+ .steps-grid{grid-template-columns:1fr}
+ .how-section,.about-section{padding:70px 0}
+ .step-card{min-height:auto}
+ .visual{min-height:320px}
+ .orbit{width:260px;height:260px}.orbit.two{width:320px;height:320px}
+ .info-card{padding:10px}
+ .card-one{right:-5px}.card-two{left:-5px}
+ .description{font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
 </head>
-
 <body>
+<nav>
+ <a class="logo" href="/">Pata<span>Sure</span>.</a>
+ <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+ <div class="drawer-overlay" id="drawerOverlay"></div>
+ <div class="nav-links" id="navLinks" aria-hidden="true">
+  <button class="drawer-close" id="drawerClose" aria-label="Close navigation menu">×</button>
+  <div class="drawer-heading">EXPLORE PATASURE</div>
+  <a href="/#about">About Us</a>
+  <a href="/buyers.html">For Buyers</a>
+  <a href="/sellers.html">For Sellers</a>
+  <a href="/verify.html">Verify a Product</a>
+  <a href="/login.html" class="nav-button">Sign In</a>
+ </div>
+</nav>
+<main>
+<section class="hero">
+ <div>
+  <div class="eyebrow">A smarter way to buy second-hand</div>
+  <h1>Before you buy it. <span>Know its story.</span></h1>
+  <p class="description">Every second-hand product has a story. PataSure helps you discover its recorded history, understand its condition, and make more informed buying decisions — one scan at a time.</p>
+  <div class="actions">
+   <a href="/verify.html" class="primary-button">Verify a product ↗</a>
+   <a href="/buyers.html" class="secondary-button">Explore PataSure</a>
+  </div>
+ </div>
+ <section class="visual" aria-label="Illustration of a product history record">
+  <div class="orbit two"></div><div class="orbit"></div>
+  <div class="node one"></div><div class="node two"></div><div class="node three"></div>
+  <div class="info-card card-one"><small>PRODUCT HISTORY</small><strong>Recorded events <span class="status">●</span></strong></div>
+  <div class="core"><div class="qr">
+   <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div><strong>PATASURE ID</strong></div>
+  <div class="info-card card-two"><small>YOUR NEXT PURCHASE</small><strong>Know more. Choose better.</strong></div>
+ </section>
+</section>
+<section class="how-section" id="how-it-works">
+ <div class="section-container">
+  <div class="section-heading">
+   <div class="eyebrow">The PataSure journey</div>
+   <h2>Discover how it <span>works.</span></h2>
+   <p>A more informed second-hand purchase starts with a product's recorded story. Here's how PataSure connects sellers, products and buyers.</p>
+  </div>
+  <div class="steps-grid">
+   <article class="step-card"><div class="step-number">01</div><h3>A product is registered</h3><p>An authorised seller registers a second-hand product, providing its identifying details, condition and available description.</p></article>
+   <article class="step-card"><div class="step-number">02</div><h3>A unique identity is created</h3><p>PataSure assigns a unique product identity and generates a QR code linking to its public product page.</p></article>
+   <article class="step-card"><div class="step-number">03</div><h3>Its story is recorded</h3><p>Authorised sellers can add relevant product history, such as repairs, disclosures and ownership-related updates.</p></article>
+   <article class="step-card"><div class="step-number">04</div><h3>The buyer scans and explores</h3><p>A prospective buyer scans the QR code to view available details and recorded history before making a purchase decision.</p></article>
+   <article class="step-card"><div class="step-number">05</div><h3>Record integrity is checked</h3><p>PataSure uses a hash-linked event history to help detect whether previously recorded events have been altered.</p></article>
+  </div>
+  <div class="integrity-note"><h3>Transparency matters. So do honest limitations.</h3><p>An intact history confirms the integrity of recorded events; it does not independently prove a product's authenticity, condition or legal ownership. Buyers should still inspect products and assess the information provided.</p></div>
+  <div class="section-action"><a href="https://verify.patasure.freeddns.org/verify.html?id=9208abe3-f6e7-4438-9ae6-60e19b2f6fd5" class="primary-button">Try a sample product record ↗</a></div>
+ </div>
+</section>
+<section class="about-section" id="about">
+ <div class="section-container"><div class="about-content">
+  <div class="eyebrow">Why PataSure</div>
+  <h2>Second-hand trade deserves <span>more transparency.</span></h2>
+  <p>Buying a pre-owned product should not mean buying without information. Yet important details about a product's past can be difficult to access, communicate or keep together.</p>
+  <p>PataSure provides a shared place for product identification, recorded disclosures and history. Our goal is simple: help buyers ask better questions and make more informed decisions.</p>
+ </div></div>
+</section>
+</main>
+<footer class="bottom-note"><span>© 2026 PataSure. Built for more transparent second-hand trade.</span><span>Product history · Disclosures · Traceability</span></footer>
+<script>
+const toggle=document.getElementById("menuToggle");
+const links=document.getElementById("navLinks");
+const overlay=document.getElementById("drawerOverlay");
+const closeButton=document.getElementById("drawerClose");
 
-    <nav>
-        <div class="logo">Pata<span>Sure</span>.</div>
-
-        <div class="nav-links">
-            <a href="#how-it-works">Discover how it works</a>
-            <a href="#about">About</a>
-            <a href="/verify">Verify a product</a>
-            <a href="/register" class="nav-button">Get started</a>
-        </div>
-    </nav>
-
-    <main>
-        <section class="hero">
-            <div>
-                <div class="eyebrow">A smarter way to buy second-hand</div>
-
-                <h1>
-                    Before you buy it.
-                    <span>Know its story.</span>
-                </h1>
-
-                <p class="description">
-                    Every second-hand product has a story.
-                    PataSure helps you discover its recorded history,
-                    understand its condition, and make more informed
-                    buying decisions — one scan at a time.
-                </p>
-
-                <div class="actions">
-                    <a href="/verify" class="primary-button">Verify a product ↗</a>
-                    <a href="#how-it-works" class="secondary-button">Discover how it works</a>
-                </div>
-            </div>
-
-            <section class="visual" aria-label="Illustration of a product history record">
-                <div class="orbit two"></div>
-                <div class="orbit"></div>
-
-                <div class="node one"></div>
-                <div class="node two"></div>
-                <div class="node three"></div>
-
-                <div class="info-card card-one">
-                    <small>PRODUCT HISTORY</small>
-                    <strong>Recorded events <span class="status">●</span></strong>
-                </div>
-
-                <div class="core">
-                    <div class="qr">
-                        <i></i><i></i><i></i><i></i><i></i>
-                        <i></i><i></i><i></i><i></i><i></i>
-                        <i></i><i></i><i></i><i></i><i></i>
-                        <i></i><i></i><i></i><i></i><i></i>
-                        <i></i><i></i><i></i><i></i><i></i>
-                    </div>
-                    <strong>PATASURE ID</strong>
-                </div>
-
-                <div class="info-card card-two">
-                    <small>YOUR NEXT PURCHASE</small>
-                    <strong>Know more. Choose better.</strong>
-                </div>
-            </section>
-        </section>
-
-        <section class="how-section" id="how-it-works">
-            <div class="section-container">
-
-                <div class="section-heading">
-                    <div class="eyebrow">The PataSure journey</div>
-                    <h2>Discover how it <span>works.</span></h2>
-                    <p>
-                        A more informed second-hand purchase starts with
-                        a product's recorded story. Here's how PataSure
-                        connects sellers, products and buyers.
-                    </p>
-                </div>
-
-                <div class="steps-grid">
-
-                    <article class="step-card">
-                        <div class="step-number">01</div>
-                        <h3>A product is registered</h3>
-                        <p>
-                            An authorised seller registers a second-hand
-                            product on PataSure, providing its identifying
-                            details, condition and available description.
-                        </p>
-                    </article>
-
-                    <article class="step-card">
-                        <div class="step-number">02</div>
-                        <h3>A unique identity is created</h3>
-                        <p>
-                            PataSure assigns the product a unique
-                            identification record and generates a QR code
-                            that links to its public product page.
-                        </p>
-                    </article>
-
-                    <article class="step-card">
-                        <div class="step-number">03</div>
-                        <h3>Its story is recorded</h3>
-                        <p>
-                            Authorised sellers can add relevant product
-                            history, such as repairs, disclosures and
-                            ownership-related updates.
-                        </p>
-                    </article>
-
-                    <article class="step-card">
-                        <div class="step-number">04</div>
-                        <h3>The buyer scans and explores</h3>
-                        <p>
-                            A prospective buyer scans the product's QR
-                            code to view its available details and recorded
-                            history before making a purchase decision.
-                        </p>
-                    </article>
-
-                    <article class="step-card">
-                        <div class="step-number">05</div>
-                        <h3>Record integrity is checked</h3>
-                        <p>
-                            PataSure uses a hash-linked event history to
-                            help detect whether previously recorded events
-                            have been altered.
-                        </p>
-                    </article>
-
-                </div>
-
-                <div class="integrity-note">
-                    <div class="integrity-symbol">◇</div>
-                    <div>
-                        <h3>Transparency matters. So do honest limitations.</h3>
-                        <p>
-                            PataSure helps make recorded product information
-                            easier to access and examine. An intact history
-                            confirms the integrity of the recorded events;
-                            it does not independently prove a product's
-                            authenticity, condition or legal ownership.
-                            Buyers should still inspect products and assess
-                            the information provided.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="section-action">
-                    <a href="https://verify.patasure.freeddns.org/verify.html?id=9208abe3-f6e7-4438-9ae6-60e19b2f6fd5" class="primary-button">
-                        Try a sample product record ↗
-                    </a>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="about-section" id="about">
-            <div class="section-container">
-                <div class="about-content">
-                    <div class="eyebrow">Why PataSure</div>
-                    <h2>Second-hand trade deserves <span>more transparency.</span></h2>
-                    <p>
-                        Buying a pre-owned product should not mean buying
-                        without information. Yet important details about
-                        a product's past can be difficult to access,
-                        communicate or keep together.
-                    </p>
-                    <p>
-                        PataSure provides a shared place for product
-                        identification, recorded disclosures and history.
-                        Our goal is simple: help buyers ask better
-                        questions and make more informed decisions.
-                    </p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bottom-note">
-        <span>© 2026 PataSure. Built for more transparent second-hand trade.</span>
-        <span>Product history · Disclosures · Traceability</span>
-    </footer>
-
+function openMenu(){
+ links.classList.add("open");
+ overlay.classList.add("open");
+ document.body.classList.add("menu-open");
+ toggle.setAttribute("aria-expanded","true");
+ toggle.setAttribute("aria-label","Close navigation menu");
+ links.setAttribute("aria-hidden","false");
+ closeButton.focus();
+}
+function closeMenu(){
+ links.classList.remove("open");
+ overlay.classList.remove("open");
+ document.body.classList.remove("menu-open");
+ toggle.setAttribute("aria-expanded","false");
+ toggle.setAttribute("aria-label","Open navigation menu");
+ links.setAttribute("aria-hidden","true");
+}
+toggle.addEventListener("click",()=>{
+ if(links.classList.contains("open")) closeMenu();
+ else openMenu();
+});
+closeButton.addEventListener("click",closeMenu);
+overlay.addEventListener("click",closeMenu);
+links.querySelectorAll("a").forEach(link=>link.addEventListener("click",closeMenu));
+document.addEventListener("keydown",event=>{
+ if(event.key==="Escape"&&links.classList.contains("open")){
+  closeMenu();
+  toggle.focus();
+ }
+});
+</script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 
 package ke.patasure.auth;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -27,11 +29,20 @@ public class SecurityConfig {
 
             // Public pages and resources
             .requestMatchers(
-                "/", "/index.html", "/login.html", "/csrf",
-                "/verify.html", "/css/**", "/js/**", "/images/**"
+                "/",
+                "/index.html",
+                "/buyers.html",
+                "/sellers.html",
+                "/login.html",
+                "/access-denied.html",
+                "/csrf",
+                "/verify.html",
+                "/css/**",
+                "/js/**",
+                "/images/**"
             ).permitAll()
 
-            // Public product details: exact endpoint matching
+            // Public product details
             .requestMatchers(
                 HttpMethod.GET,
                 "/api/products",
@@ -63,6 +74,23 @@ public class SecurityConfig {
 
             // Everything else requires authentication
             .anyRequest().authenticated()
+        );
+
+        // Friendly page for browser access-denied responses.
+        // API requests retain a proper JSON 403 response.
+        http.exceptionHandling(exception -> exception
+            .accessDeniedHandler((request, response, accessDeniedException) -> {
+                if (request.getRequestURI().startsWith("/api/")) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(
+                        "{\"error\":\"forbidden\",\"message\":\"You do not have permission to access this resource.\"}"
+                    );
+                } else {
+                    response.sendRedirect("/access-denied.html");
+                }
+            })
         );
 
         http.formLogin(form -> form
